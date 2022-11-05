@@ -12,7 +12,12 @@ const GlobalContext = createContext({
     user:null,
     setUser:()=>{},
     auth:false,
-    setAuth:()=>{}
+    setAuth:()=>{},
+    accessToken:"",
+    setAccessToken:()=>{},
+    refreshToken:"",
+    setRefreshToken:()=>{}
+
 })
 
 export default GlobalContext

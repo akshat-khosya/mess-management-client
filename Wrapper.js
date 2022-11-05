@@ -11,6 +11,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { useContext, useEffect } from 'react'
 import GlobalContext from './src/context/GlobalContext'
+import Profile from './src/screens/Profile'
+import ChangePassword from './src/screens/ChangePassword'
+import RecentDevices from './src/screens/RecentDevices'
 
 const Stack = createStackNavigator()
 
@@ -35,6 +38,9 @@ const Wrapper = () => {
                     <Stack.Screen name="LoginScreen" component={LoginScreen} />
                     <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                     <Stack.Screen name="Dashboard" component={Dashboard} />
+                    <Stack.Screen name="Profile" component={Profile} />
+                    <Stack.Screen name="ChangePassword" component={ChangePassword} />
+                    <Stack.Screen name="RecentDevice" component={RecentDevices} />
                     <Stack.Screen
                         name="ResetPasswordScreen"
                         component={ResetPasswordScreen}

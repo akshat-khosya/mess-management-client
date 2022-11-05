@@ -11,7 +11,7 @@ export default function Dashboard({ navigation }) {
   return (
     <Background>
       {
-        user.role === 2 && <Student />
+        user.role === 2 && <Student navigation={navigation} />
       }
       {
         user.role === 1 && <GateGuard />

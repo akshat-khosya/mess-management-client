@@ -11,9 +11,10 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import GlobalContext from '../context/GlobalContext'
+import { storeData } from '../asyncStorage/storageFunctions'
 
 export default function LoginScreen({ navigation }) {
-  const { geoLocation, machineId,axiosInstance,setAuth,setUser,auth } = useContext(GlobalContext);
+  const { geoLocation, machineId,axiosInstance,setAuth,setUser,auth,setAccessToken,setRefreshToken } = useContext(GlobalContext);
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
 
@@ -28,10 +29,14 @@ export default function LoginScreen({ navigation }) {
     }
     try {
       let res = await axiosInstance.post("/api/session/create",{email:email.value,password:password.value,machineId:machineId,geoLocation:geoLocation});
-      alert(res.data.msg);
+      console.log(res.data);
       setAuth(()=>true);
-      alert(auth);
+      
       setUser(()=>res.data.userData);
+      setAccessToken(()=>res.data.accessToken);
+      setRefreshToken(()=>res.data.refreshToken);
+      storeData("accessToken",res.data.accessToken);
+      storeData("refreshToken",res.data.refreshToken);
       navigation.reset({
         index: 0,
         routes: [{ name: 'Dashboard' }],
@@ -67,13 +72,13 @@ export default function LoginScreen({ navigation }) {
         errorText={password.error}
         secureTextEntry
       />
-      <View style={styles.forgotPassword}>
+      {/* <View style={styles.forgotPassword}>
         <TouchableOpacity
           onPress={() => navigation.navigate('ResetPasswordScreen')}
         >
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <Button mode="contained" onPress={onLoginPressed}>
         Login
       </Button>

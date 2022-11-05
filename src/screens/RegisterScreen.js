@@ -28,19 +28,18 @@ export default function RegisterScreen({ navigation }) {
     const roomError = roomValidator(room.value)
     const mobileError = mobileValidator(mobile.value)
 
-    if (nameError || rollError || roomError || mobileError) {
+    if (nameError || rollError ||  mobileError) {
       setName({ ...name, error: nameError })
       setRoll({ ...roll, error: rollError })
       setHostel({ ...hostel, error: "" })
       setMobile({ ...mobile, error: mobileError })
-      setRoom({ ...room, error: roomError })
 
       return
     }
-    console.log(room);
+   
 
     try {
-      const res = await axiosInstance.post("/api/user/student/create", { roomNumber: room.value, hostelName: hostel.value, phone: mobile.value, rollNo: roll.value, name: name.value });
+      const res = await axiosInstance.post("/api/user/student/create", {  messName: hostel.value, phone: mobile.value, rollNo: roll.value, name: name.value });
       console.log(res.data);
       alert(res.data.msg);
     } catch (error) {
@@ -79,21 +78,14 @@ export default function RegisterScreen({ navigation }) {
         errorText={roll.error}
       />
       <TextInput
-        label="Hostel Name"
+        label="Mess Name"
         returnKeyType="next"
         value={hostel.value}
         onChangeText={(text) => setHostel({ value: text, error: '' })}
         error={!!hostel.error}
         errorText={hostel.error}
       />
-      <TextInput
-        label="Room No."
-        returnKeyType="next"
-        value={room.value}
-        onChangeText={(text) => setRoom({ value: text, error: '' })}
-        error={!!room.error}
-        errorText={room.error}
-      />
+      
       <TextInput
         label="Mobile No."
         returnKeyType="next"
